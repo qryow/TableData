@@ -11,14 +11,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
 import LoadingTable from "./LoadingTable";
-import { dataContext } from "@/context/test";
+import { dataContext } from "@/context/DataContext";
 import TableRow from "./TableRow";
-import { thArray } from "@/helpers/const";
+import { bigDataAPI, lowDataAPI, thArray } from "@/helpers/const";
 
 const TableList = () => {
   const {
-    getLowData,
-    getBigData,
+    fetchData,
     sortedData,
     data,
     loading,
@@ -30,7 +29,9 @@ const TableList = () => {
     setCurrentPage,
     oneData,
   } = useContext(dataContext);
-  console.log(sortOrders);
+
+  const getLowData = () => fetchData(lowDataAPI);
+  const getBigData = () => fetchData(bigDataAPI);
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
@@ -38,7 +39,7 @@ const TableList = () => {
   }
 
   useEffect(() => {
-    getLowData(); //* можно сделать без него
+    getLowData();
   }, []);
 
   return (
@@ -72,7 +73,6 @@ const TableList = () => {
           ) : (
             <>
               {sortedData.map((elem, index) => (
-                //<TableRow key={`${elem.id}`} {...elem} /> //* сначало покажу что у них могут быть одинаковые айди и будут ошибки
                 <TableRow key={`${elem.id}-${index}`} elem={elem} />
               ))}
             </>

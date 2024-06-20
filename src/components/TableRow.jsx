@@ -1,4 +1,4 @@
-import { dataContext } from "@/context/test";
+import { dataContext } from "@/context/DataContext";
 import { Td, Tr } from "@chakra-ui/react";
 import React, { useContext } from "react";
 
