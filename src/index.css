@@ -8,3 +8,7 @@ td {
 table {
   margin: 0 auto;
 }
+
+ul {
+  text-decoration: none;
+}

@@ -1,3 +1,4 @@
+import { dataContext } from "@/context/test";
 import {
   Button,
   Flex,
@@ -13,19 +14,31 @@ import {
   FormLabel,
   ModalFooter,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useContext, useState } from "react";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { setSearchQuery } = useContext(dataContext);
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = () => {
+    setSearchQuery(search);
+    setSearch("");
+  };
+
   return (
     <Flex alignItems={"center"} justifyContent={"space-between"}>
       <Button colorScheme="teal" onClick={onOpen}>
         Добавить
       </Button>
       <Flex gap={4}>
-        <Input placeholder="Поиск" />
+        <Input
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+          placeholder="Поиск"
+        />
 
-        <Button colorScheme="teal" px={6}>
+        <Button onClick={handleSubmit} colorScheme="teal" px={6}>
           Найти
         </Button>
       </Flex>
